@@ -27,7 +27,7 @@ class AddForm extends React.Component {
                 })
             })
             .catch((err) =>
-                this.props.dispatch({ type: SET_ERROR, payload: err })
+                this.props.dispatch({ type: SET_ERROR, payload: err.message })
             )
         this.setState({})
     }
