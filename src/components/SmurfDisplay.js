@@ -1,22 +1,24 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import Smurf from './Smurf'
 
 export class SmurfDisplay extends React.Component {
     render() {
-        return (
-            <div>
-                {this.props.smurfs.map((smurf) => (
-                    <div className="card" key={smurf[0].id}>
-                        {smurf[0].name}
-                    </div>
-                ))}
-            </div>
-        )
+        const data = this.props.smurfs
+        console.log('data', data)
+
+        return this.props.isLoading === true
+            ? 'Loading...'
+            : data.map((smurf) => (
+                  <Smurf smurfName={smurf.name} smurfId={smurf.id} />
+              ))
     }
 }
 const mapStateToProps = (state) => {
+    console.log(state.smurfs)
     return {
         smurfs: state.smurfs,
+        isLoading: state.isLoading,
     }
 }
 export default connect(mapStateToProps)(SmurfDisplay)

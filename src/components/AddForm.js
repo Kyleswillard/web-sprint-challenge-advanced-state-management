@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import apis from '../apis'
 import { ADD_SMURF } from '../types'
 
 class AddForm extends React.Component {
@@ -13,7 +14,9 @@ class AddForm extends React.Component {
     }
     handleSubmit = (e) => {
         e.preventDefault()
-        this.props.dispatch({ type: ADD_SMURF, payload: this.state.value })
+        apis.post('/smurfs').then((res) =>
+            this.props.dispatch({ type: ADD_SMURF, payload: res.data })
+        )
     }
 
     render() {

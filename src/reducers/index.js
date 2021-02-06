@@ -19,8 +19,8 @@ const reducer = (state = initialState, action) => {
         case FETCH_SMURF_SUCCESS:
             return {
                 ...state,
-                isLoading: false,
                 smurfs: [...state.smurfs, action.payload],
+                isLoading: false,
             }
         case ADD_SMURF:
             return { ...state, smurfs: [...state.smurfs, action.payload] }

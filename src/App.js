@@ -11,7 +11,7 @@ import './App.css'
 
 class App extends Component {
     componentDidMount() {
-        if (this.props.smurfs.length <= 0) {
+        if (this.props.smurfs === null || this.props.smurfs.length <= 0) {
             this.props.dispatch({ type: FETCH_SMURF })
             apis.get('/smurfs')
                 .then((res) => {
@@ -31,8 +31,8 @@ class App extends Component {
                     <a className="navbar-brand">Smurf Village Database</a>
                 </nav>
                 <main>
-                    <AddForm dispatch={this.props.dispatch} />
-                    <SmurfDisplay dipatch={this.props.dispatch} apis={apis} />
+                    <AddForm />
+                    <SmurfDisplay />
                 </main>
             </div>
         )
