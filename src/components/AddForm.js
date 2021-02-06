@@ -21,14 +21,31 @@ class AddForm extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault()
-        apis.post(`/smurfs`, this.state)
-            .then((res) => {
-                this.props.dispatch({ type: ADD_SMURF, payload: res.data })
-            })
-            .catch((err) =>
-                this.props.dispatch({ type: SET_ERROR, payload: err })
-            )
-        this.setState({})
+        try {
+            if (!this.state.name) {
+                throw new Error('Please enter a name!')
+            }
+            if (!this.state.nickname) {
+                throw new Error('Please enter a nickname!')
+            }
+            if (!this.state.position) {
+                throw new Error('Please enter a position!')
+            } else {
+                apis.post('/smurfs', this.state)
+                    .then((res) => {
+                        this.props.dispatch({
+                            type: ADD_SMURF,
+                            payload: res.data,
+                        })
+                    })
+                    .catch((err) =>
+                        this.props.dispatch({ type: SET_ERROR, payload: err })
+                    )
+                this.setState({})
+            }
+        } catch (error) {
+            this.props.dispatch({ type: SET_ERROR, payload: error.message })
+        }
     }
 
     render() {
@@ -45,7 +62,6 @@ class AddForm extends React.Component {
                             name="name"
                             id="name"
                             value={this.state.name}
-                            required
                         />
                     </div>
                     <div className="form-group">
@@ -56,7 +72,6 @@ class AddForm extends React.Component {
                             name="position"
                             id="name"
                             value={this.state.position}
-                            required
                         />
                     </div>
                     <div className="form-group">
@@ -67,7 +82,6 @@ class AddForm extends React.Component {
                             name="nickname"
                             id="name"
                             value={this.state.nickname}
-                            required
                         />
                     </div>
                     <div className="form-group">
@@ -85,7 +99,10 @@ class AddForm extends React.Component {
                         className="alert alert-danger"
                         role="alert"
                     >
-                        Error:{this.props.error}
+                        Error:
+                        {this.props.error === null
+                            ? ' No Errors'
+                            : this.props.error}
                     </div>
                     <button>Submit Smurf</button>
                 </form>

@@ -1,4 +1,3 @@
-import { bindActionCreators } from 'redux'
 import {
     ADD_SMURF,
     FETCH_SMURF,
@@ -29,6 +28,7 @@ const reducer = (state = initialState, action) => {
             }
         case SET_ERROR:
             return { ...state, error: action.payload }
+
         default:
             return state
     }
