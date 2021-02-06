@@ -33,6 +33,7 @@ class AddForm extends React.Component {
                             name="name"
                             id="name"
                             value={this.state.value}
+                            required
                         />
                     </div>
                     <div className="form-group">
@@ -43,6 +44,7 @@ class AddForm extends React.Component {
                             name="name"
                             id="name"
                             value={this.state.value}
+                            required
                         />
                     </div>
                     <div className="form-group">
@@ -53,6 +55,7 @@ class AddForm extends React.Component {
                             name="name"
                             id="name"
                             value={this.state.value}
+                            required
                         />
                     </div>
                     <div className="form-group">
