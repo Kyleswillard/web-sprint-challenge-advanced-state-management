@@ -1,5 +1,10 @@
 import { bindActionCreators } from 'redux'
-import { ADD_SMURF, FETCH_SMURF, SET_ERROR } from '../actions'
+import {
+    ADD_SMURF,
+    FETCH_SMURF,
+    SET_ERROR,
+    FETCH_SMURF_SUCCESS,
+} from '../types'
 
 export const initialState = {
     smurfs: [],
@@ -11,9 +16,14 @@ const reducer = (state = initialState, action) => {
     switch (action.type) {
         case FETCH_SMURF:
             return { ...state, isLoading: true }
-
+        case FETCH_SMURF_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                smurfs: [...state.smurfs, action.payload],
+            }
         case ADD_SMURF:
-            return { ...state, smurfs: [...state, action.payload] }
+            return { ...state, smurfs: [...state.smurfs, action.payload] }
         case SET_ERROR:
             return { ...state, error: action.payload }
         default:

@@ -1,14 +1,25 @@
-import React from 'react';
+import React from 'react'
+import { connect } from 'react-redux'
 
 export class SmurfDisplay extends React.Component {
     render() {
-        return(<div>
-            
-        </div>)
+        return (
+            <div>
+                {this.props.smurfs.map((smurf) => (
+                    <div className="card" key={smurf[0].id}>
+                        {smurf[0].name}
+                    </div>
+                ))}
+            </div>
+        )
     }
 }
-
-export default SmurfDisplay;
+const mapStateToProps = (state) => {
+    return {
+        smurfs: state.smurfs,
+    }
+}
+export default connect(mapStateToProps)(SmurfDisplay)
 
 //Task List:
 //1. Import in all needed components and library methods.

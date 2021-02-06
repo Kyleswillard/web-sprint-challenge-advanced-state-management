@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { connect } from 'react-router'
+import { connect } from 'react-redux'
 import AddForm from './components/AddForm'
 import SmurfDisplay from './components/SmurfDisplay'
 
@@ -10,10 +10,6 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 
 class App extends Component {
-    constructor(props) {
-        super(props)
-    }
-
     componentDidMount() {
         if (this.props.smurfs.length <= 0) {
             this.props.dispatch({ type: FETCH_SMURF })
@@ -27,6 +23,7 @@ class App extends Component {
                 .catch((err) => console.error(err))
         }
     }
+
     render() {
         return (
             <div className="App">
@@ -34,7 +31,7 @@ class App extends Component {
                     <a className="navbar-brand">Smurf Village Database</a>
                 </nav>
                 <main>
-                    <AddForm />
+                    <AddForm dispatch={this.props.dispatch} />
                     <SmurfDisplay dipatch={this.props.dispatch} apis={apis} />
                 </main>
             </div>

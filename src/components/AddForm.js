@@ -1,4 +1,6 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { ADD_SMURF } from '../types'
 
 class AddForm extends React.Component {
     state = {
@@ -7,9 +9,11 @@ class AddForm extends React.Component {
 
     handleChange = (e) => {
         this.setState({ value: e.target.value })
+        console.log(this.state.value)
     }
     handleSubmit = (e) => {
         e.preventDefault()
+        this.props.dispatch({ type: ADD_SMURF, payload: this.state.value })
     }
 
     render() {
@@ -24,6 +28,7 @@ class AddForm extends React.Component {
                             onChange={this.handleChange}
                             name="name"
                             id="name"
+                            value={this.state.value}
                         />
                     </div>
 
@@ -32,7 +37,7 @@ class AddForm extends React.Component {
                         className="alert alert-danger"
                         role="alert"
                     >
-                        Error:{' '}
+                        Error:{this.props.error}
                     </div>
                     <button>Submit Smurf</button>
                 </form>
@@ -41,7 +46,15 @@ class AddForm extends React.Component {
     }
 }
 
-export default AddForm
+const mapStateToProps = (state) => {
+    return {
+        smurfs: state.smurfs,
+        isLoading: state.isLoading,
+        error: state.error,
+    }
+}
+
+export default connect(mapStateToProps, (dispatch) => ({ dispatch }))(AddForm)
 
 //Task List:
 //1. Add in all necessary import components and library methods.
