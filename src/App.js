@@ -4,7 +4,7 @@ import AddForm from './components/AddForm'
 import SmurfDisplay from './components/SmurfDisplay'
 
 import apis from './apis'
-import { FETCH_SMURF, FETCH_SMURF_SUCCESS } from './types'
+import { FETCH_SMURF, FETCH_SMURF_SUCCESS, SET_ERROR } from './types'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
@@ -20,7 +20,9 @@ class App extends Component {
                         payload: res.data,
                     })
                 })
-                .catch((err) => console.error(err))
+                .catch((err) =>
+                    this.props.dispatch({ type: SET_ERROR, payload: err })
+                )
         }
     }
 
