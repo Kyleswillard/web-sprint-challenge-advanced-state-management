@@ -18,7 +18,19 @@ class AddForm extends React.Component {
             [e.target.name]: e.target.value,
         })
     }
-
+    addSmurf = () => {
+        apis.post('/smurfs', this.state)
+            .then((res) => {
+                this.props.dispatch({
+                    type: ADD_SMURF,
+                    payload: res.data,
+                })
+            })
+            .catch((err) =>
+                this.props.dispatch({ type: SET_ERROR, payload: err })
+            )
+        this.setState({})
+    }
     handleSubmit = (e) => {
         e.preventDefault()
         try {
@@ -30,19 +42,8 @@ class AddForm extends React.Component {
             }
             if (!this.state.position) {
                 throw new Error('Please enter a position!')
-            } else {
-                apis.post('/smurfs', this.state)
-                    .then((res) => {
-                        this.props.dispatch({
-                            type: ADD_SMURF,
-                            payload: res.data,
-                        })
-                    })
-                    .catch((err) =>
-                        this.props.dispatch({ type: SET_ERROR, payload: err })
-                    )
-                this.setState({})
             }
+            this.addSmurf()
         } catch (error) {
             this.props.dispatch({ type: SET_ERROR, payload: error.message })
         }
