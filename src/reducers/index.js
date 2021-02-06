@@ -11,6 +11,7 @@ const reducer = (state = initialState, action) => {
     switch (action.type) {
         case FETCH_SMURF:
             return { ...state, isLoading: true }
+
         case ADD_SMURF:
             return { ...state, smurfs: [...state, action.payload] }
         case SET_ERROR:
