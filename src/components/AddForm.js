@@ -5,30 +5,38 @@ import { ADD_SMURF, SET_ERROR } from '../types'
 
 class AddForm extends React.Component {
     state = {
-        value: '',
+        id: new Date(),
+        name: '',
+        position: '',
+        nickname: '',
+        description: '',
     }
-    // change handler to take multiple inputs
+
     handleChange = (e) => {
-        this.setState({ value: e.target.value })
-        console.log(this.state.value)
+        e.preventDefault()
+        this.setState({
+            [e.target.name]: e.target.value,
+        })
     }
 
     handleSubmit = (e) => {
         e.preventDefault()
-        apis.post('/smurfs', this.state.value)
-            .then((res) =>
+        apis.post(`/smurfs`, this.state)
+            .then((res) => {
                 this.props.dispatch({ type: ADD_SMURF, payload: res.data })
-            )
+            })
             .catch((err) =>
                 this.props.dispatch({ type: SET_ERROR, payload: err })
             )
+        this.setState({})
     }
 
     render() {
+        console.log(this.state)
         return (
             <section>
                 <h2>Add Smurf</h2>
-                <form>
+                <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="name">Name:</label>
                         <br />
@@ -36,7 +44,7 @@ class AddForm extends React.Component {
                             onChange={this.handleChange}
                             name="name"
                             id="name"
-                            value={this.state.value}
+                            value={this.state.name}
                             required
                         />
                     </div>
@@ -45,9 +53,9 @@ class AddForm extends React.Component {
                         <br />
                         <input
                             onChange={this.handleChange}
-                            name="name"
+                            name="position"
                             id="name"
-                            value={this.state.value}
+                            value={this.state.position}
                             required
                         />
                     </div>
@@ -56,9 +64,9 @@ class AddForm extends React.Component {
                         <br />
                         <input
                             onChange={this.handleChange}
-                            name="name"
+                            name="nickname"
                             id="name"
-                            value={this.state.value}
+                            value={this.state.nickname}
                             required
                         />
                     </div>
@@ -67,9 +75,9 @@ class AddForm extends React.Component {
                         <br />
                         <input
                             onChange={this.handleChange}
-                            name="name"
+                            name="description"
                             id="name"
-                            value={this.state.value}
+                            value={this.state.description}
                         />
                     </div>
                     <div
