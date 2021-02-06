@@ -7,14 +7,15 @@ class AddForm extends React.Component {
     state = {
         value: '',
     }
-
+    // change handler to take multiple inputs
     handleChange = (e) => {
         this.setState({ value: e.target.value })
         console.log(this.state.value)
     }
+
     handleSubmit = (e) => {
         e.preventDefault()
-        apis.post('/smurfs').then((res) =>
+        apis.post('/smurfs', e.target.value).then((res) =>
             this.props.dispatch({ type: ADD_SMURF, payload: res.data })
         )
     }
@@ -34,7 +35,36 @@ class AddForm extends React.Component {
                             value={this.state.value}
                         />
                     </div>
-
+                    <div className="form-group">
+                        <label htmlFor="name">Position:</label>
+                        <br />
+                        <input
+                            onChange={this.handleChange}
+                            name="name"
+                            id="name"
+                            value={this.state.value}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="name">Nickname:</label>
+                        <br />
+                        <input
+                            onChange={this.handleChange}
+                            name="name"
+                            id="name"
+                            value={this.state.value}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="name">Description:</label>
+                        <br />
+                        <input
+                            onChange={this.handleChange}
+                            name="name"
+                            id="name"
+                            value={this.state.value}
+                        />
+                    </div>
                     <div
                         data-testid="errorAlert"
                         className="alert alert-danger"

@@ -4,14 +4,17 @@ import Smurf from './Smurf'
 
 export class SmurfDisplay extends React.Component {
     render() {
-        const data = this.props.smurfs
-        console.log('data', data)
+        const { smurfs } = this.props
 
-        return this.props.isLoading === true
-            ? 'Loading...'
-            : data.map((smurf) => (
-                  <Smurf smurfName={smurf.name} smurfId={smurf.id} />
-              ))
+        console.log('Smurf Display Component', smurfs)
+        return (
+            <div>
+                {smurfs.length > 0 &&
+                    smurfs.map((smurf) => {
+                        return <Smurf smurf={smurf} key={smurf.id} />
+                    })}
+            </div>
+        )
     }
 }
 const mapStateToProps = (state) => {
