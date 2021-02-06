@@ -1,14 +1,29 @@
+import { bindActionCreators } from 'redux'
+import { ADD_SMURF, FETCH_SMURF, SET_ERROR } from '../actions'
 
 export const initialState = {
+    smurfs: [],
+    isLoading: false,
+    error: null,
 }
 
-const reducer = ()=>{
+const reducer = (state = initialState, action) => {
+    switch (action.type) {
+        case FETCH_SMURF:
+            return { ...state, isLoading: true }
+        case ADD_SMURF:
+            return { ...state, smurfs: [...state, action.payload] }
+        case SET_ERROR:
+            return { ...state, error: action.payload }
+        default:
+            return state
+    }
 }
 
-export default reducer;
+export default reducer
 
 //Task List:
-//1. Add in the initialState needed to hold: 
+//1. Add in the initialState needed to hold:
 //      - an array of smurfs
 //      - a boolean indicating if the app is loading
 //      - error text

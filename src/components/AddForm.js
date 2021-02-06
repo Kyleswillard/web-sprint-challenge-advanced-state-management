@@ -1,24 +1,47 @@
-import React from 'react';
+import React from 'react'
 
 class AddForm extends React.Component {
+    state = {
+        value: '',
+    }
+
+    handleChange = (e) => {
+        this.setState({ value: e.target.value })
+    }
+    handleSubmit = (e) => {
+        e.preventDefault()
+    }
 
     render() {
-        return(<section>
-            <h2>Add Smurf</h2>
-            <form>
-                <div className="form-group">
-                    <label htmlFor="name">Name:</label><br/>
-                    <input onChange={this.handleChange} name="name" id="name" />
-                </div>
+        return (
+            <section>
+                <h2>Add Smurf</h2>
+                <form>
+                    <div className="form-group">
+                        <label htmlFor="name">Name:</label>
+                        <br />
+                        <input
+                            onChange={this.handleChange}
+                            name="name"
+                            id="name"
+                        />
+                    </div>
 
-                <div data-testid="errorAlert" className="alert alert-danger" role="alert">Error: </div>
-                <button>Submit Smurf</button>
-            </form>
-        </section>);
+                    <div
+                        data-testid="errorAlert"
+                        className="alert alert-danger"
+                        role="alert"
+                    >
+                        Error:{' '}
+                    </div>
+                    <button>Submit Smurf</button>
+                </form>
+            </section>
+        )
     }
 }
 
-export default AddForm;
+export default AddForm
 
 //Task List:
 //1. Add in all necessary import components and library methods.
